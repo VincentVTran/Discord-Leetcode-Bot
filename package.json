@@ -1,0 +1,26 @@
+{
+  "name": "discord-leetcode-bot",
+  "version": "1.0.0",
+  "description": "A discord bot with leetcode functionality",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VincentVTran/Discord-Leetcode-Bot.git"
+  },
+  "keywords": [
+    "Discord",
+    "Leetcode"
+  ],
+  "author": "Vincent Tran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VincentVTran/Discord-Leetcode-Bot/issues"
+  },
+  "homepage": "https://github.com/VincentVTran/Discord-Leetcode-Bot#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1"
+  }
+}
