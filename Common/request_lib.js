@@ -16,7 +16,7 @@ async function getQuestionIndex(databaseRef, userid) {
     var snapshotValue = await databaseRef.once("value");
     snapshotValue = snapshotValue.val();
     try {
-        return snapshotValue[userid];
+        return snapshotValue[userid.replace('#','_')];
     }
     catch(error) {
         return undefined;
