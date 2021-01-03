@@ -1,24 +1,36 @@
-const https = require('https');
+const request = require("request-promise");
 
 // Grabs list of questions
-function fetchListOfQuestions() {
-    let listOfQuestions = '';
-    https.get('https://leetcode.com/api/problems/algorithms/', (resp) => {
-        // A chunk of data has been recieved.
-        resp.on('data', (chunk) => {
-        listOfQuestions += chunk;
-        });
-    
-        // The whole response has been received. Print out the result.
-        resp.on('end', () => {
-            listOfQuestions = JSON.parse(listOfQuestions).stat_status_pairs;
-            return listOfQuestions;
-        });
-    }).on("error", (err) => {
-      console.log("Error: " + err.message);
-    });
+async function fetchListOfQuestions() {
+    var options = {
+        uri: 'https://leetcode.com/api/problems/algorithms/',
+        transform: function (body) {
+            return JSON.parse(body).stat_status_pairs;
+        }
+    };
+    return await request(options);
 }
 
+// Retrieve CurrentQuestion
+async function getQuestionIndex(databaseRef, userid) {
+    var snapshotValue = await databaseRef.once("value");
+    snapshotValue = snapshotValue.val();
+    try {
+        return snapshotValue[userid];
+    }
+    catch(error) {
+        return undefined;
+    }
+}
+
+// Submit Question
+function submitQuestion(databaseRef, userid, data) {
+    databaseRef.child(userid.replace('#','_')).set(data);
+}
+
+
 module.exports = {
-    fetchListOfQuestions
+    fetchListOfQuestions,
+    submitQuestion,
+    getQuestionIndex
 }
