@@ -83,7 +83,7 @@ async function setDailyLeetcode() {
     }
   });
 
-  cronJob = cron.job("42 13 * * *", async function(){
+  cronJob = cron.job("00 10 * * *", async function(){
     var questionIndex = await getQuestionIndex(databaseRef, client.user.tag);
     // Processing status if none exists
     if(questionIndex === undefined) {
@@ -92,7 +92,7 @@ async function setDailyLeetcode() {
       questionIndex['channelID'] = 0;
     }
 
-    leetcodeChannel.send("Here is your daily leetcode problem. Once you have completed it, use the command !submit '''[paste code here]''': " + problemLink + freeQuestions[questionIndex['currentIndex']].stat.question__title_slug);
+    leetcodeChannel.send("Here is your daily leetcode problem: " + problemLink + freeQuestions[questionIndex['currentIndex']].stat.question__title_slug);
     freeQuestions['currentIndex']++;
     if(questionIndex['currentIndex'] >= freeQuestions.length) {
       questionIndex['currentIndex'] = 0;
