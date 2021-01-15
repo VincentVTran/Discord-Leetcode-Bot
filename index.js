@@ -83,7 +83,7 @@ async function setDailyLeetcode() {
     }
   });
 
-  cronJob = cron.job("13 15 * * *", async function(){
+  cronJob = cron.job("00 10 * * *", async function(){
     var questionIndex = await getQuestionIndex(databaseRef, client.user.tag);
     // Processing status if none exists
     if(questionIndex === undefined) {
